@@ -1,0 +1,5 @@
+/*
+
+This script creates the databases and collections necessary to store and access data associated with this API prototype.
+
+*/

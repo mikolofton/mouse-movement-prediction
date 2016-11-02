@@ -1,0 +1,32 @@
+{
+  "name": "mouse-movement-authentication",
+  "version": "1.0.0",
+  "description": "An API that uses a linear regression model and Fitts' Law to authenticate user identity based upon mouse movements.",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikolofton/mouse-mvmt-auth.git"
+  },
+  "author": "Melissa Lofton",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "csv": "^1.1.0",
+    "csvtojson": "^1.0.3",
+    "express": "^4.14.0",
+    "fast-csv": "^2.3.0",
+    "json": "^9.0.4",
+    "mongodb": "^2.2.10"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "mouse",
+    "movement",
+    "authentication",
+    "regression"
+  ]
+}
