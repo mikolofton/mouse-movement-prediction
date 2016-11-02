@@ -11,6 +11,7 @@ Updates
 Last Updated: 2016-11-02
 
 __Completed___
+
 1. dbConn.js - general connection module to MongoDB
 2. generateData.js - script that cuts csv files to 20 instances
 3. formula.py - Euclidean distance formula and Shannon's formula
@@ -18,9 +19,11 @@ __Completed___
 5. confidence_score.py - Takes dummy object as authentication data for a user, computes scoring segments and outputs a score object
 
 __In Progress__
+
 populate.js - building the metrics database from the quizzes database and regression_model.py
 
 __To Do__
+
 1. setup.js - Nodejs automation script to automatically populate local databases with valid data
 2. auth.js - Authentication logic for verifying a user's identity.
 3. test.js - automate multiple instances for testing the authentication
@@ -30,30 +33,28 @@ __To Do__
 Background Information
 ----------------------
 
-#### Fitts' Law / Shannon's Limit
+![alt text](http://mikolofton.com/mouse-mvmt-auth-01-formulas.png "Formulas")
 
 __Formula 1: Shannon's Limit__
-1. _ID – index of difficulty_
-⋅⋅⋅Represents the relative difficulty of moving the pointer, from the start to the target using an input device, for that particular person.
-2.	_A – amplitude_
-⋅⋅⋅The amplitude or distance from start to the target’s center.
-3.	_W - width_
-⋅⋅⋅The width of the target, where the movement terminates.
+
+1. _ID – index of difficulty_: Represents the relative difficulty of moving the pointer, from the start to the target using an input device, for that particular person.
+2.	_A – amplitude_: The amplitude or distance from start to the target’s center.
+3.	_W - width_: The width of the target, where the movement terminates.
 
 __Formula 2: Fitts' Law__
-1.	_MT – movement completion time_
-⋅⋅⋅The total time it takes to get from the start to the target. It is measured in milliseconds.
-2. _a, b –device dependent constants_
-⋅⋅⋅a represents the time needed to use the input device and their reaction and b represents user’s human motor system’s capacity to process information, essentially their reaction time
-3. _Shannon's Limit_
-⋅⋅⋅used to calculate the index of difficulty of a task
+
+1.	_MT – movement completion time_: The total time it takes to get from the start to the target. It is measured in milliseconds.
+2. _a, b –device dependent constants_: a represents the time needed to use the input device and their reaction and b represents user’s human motor system’s capacity to process information, essentially their reaction time
+3. _Shannon's Limit_: used to calculate the index of difficulty of a task
 
 __Formula 3: Linear Relationship of MT/ID__
+
 1. _ID_ is the independent variable
 2. _MT_ is the dependent variable of ID
 3. _a_ is the y-intercept coefficient and _b_ is the slope coefficient
 
 ### Stack
+
 MongoDB
 NodeJs/ExpressJs
 Python (scipy/json)
