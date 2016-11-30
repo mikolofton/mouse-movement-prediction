@@ -1,10 +1,10 @@
-# Mouse Movement Authentication API
+# Mouse Movement Prediction API
 
 ###### Author: Melissa Lofton
 
 Introduction
 ------------
-Biometric authentication is the focus of evolving efforts to identify a user with natural human characteristics or behavior. Mouse movements are such a behavior that can be recorded synchronously as a user interacts with a computer or device. The application programmable interface (API) developed by this study aims to successfully authenticate users based on their mouse movements. To achieve this the API utilizes the index of difficulty (ID) and mouse movement completion time (MT) and applies a linear regression model to Fitts’ Law to predict movement time from the index of difficulty. The API decides whether a user passes authentication by determining if the predicted MT is within one standard error of the actual MT. The API also features a confidence score which demonstrates the level of confidence the API has in its authentication result. Analysis of the mouse movement API includes a series of tests for accuracy and the confidence score to determine the efficacy of the API's authentication service.
+The application programmable interface (API) developed by this study aims to successfully predict a task's movement time based upon the task's calculated index of difficulty for each individual user. To achieve this the API applies a linear regression model to Fitts’ Law to predict movement time (MT) from the index of difficulty (ID). The API also features a confidence score which demonstrates the level of confidence the API has in its prediction result. Analysis of the mouse movement API includes a series of tests for accuracy and the confidence score to determine the efficacy of the API's prediction service.
 
 Updates
 -------
@@ -25,8 +25,7 @@ populate.js - building the metrics database from the quizzes database and regres
 __To Do__
 
 1. setup.js - Nodejs automation script to automatically populate local databases with valid data
-2. auth.js - Authentication logic for verifying a user's identity.
-3. test.js - automate multiple instances for testing the authentication
+3. test.js - automate multiple instances for testing the prediction
 4. server.js - setting up routing and endpoints for the API
 5. README.md - write instructions on how to install and use this project
 
@@ -94,21 +93,20 @@ The API builds a metric database based upon the data contained in the quizzes da
 | mean.amt              | the mean actual movement time from all instances                                                         |
 | mean.v                | the mean Euclidean distance between predicted movement times and actual movement time from all instances |
 
-Authentication
+Prediction
 --------------
 
 1. Instance object that contains _uid_, _origin_, _offset_, _w_ and _mt_ is passed in the API request.
 2. _a_ is set to the Euclidean distance between _origin_ and _w_.
 3. The _uid_ is used to retrieve an existing document in the “users” database and therefore the _uid_ must match an _uid_ contained in the metrics database.
 4. Once a matching user document is found, the API uses the _slope_, _yInt_ for that user along with the _iod_ from the request to predict the movement time by applying them to the linear regression formula.
-5. The API evaluates whether the absolute value of the difference between the predicted value and actual value is less than the standard error. This method determines whether the prediction value is within one standard deviation of the actual value.
-6. If the predicted MT is within one standard deviation of the actual MT, the API sets the authentication response to true and vice versa.
-7. The authentication response includes a confidence score that is a combination of weighted metrics that convey the reliability of the authentication result.
+5. The API returns the predicted value and compares it to the actual movement time. 
+6. The response includes a confidence score that is a combination of weighted metrics that convey the reliability of the prediction result.
 
 Confidence Score
 ----------------
 
-The confidence score represents the reliability of the authentication result. The confidence score is split between three segments, each with a weighted value that when combined will produce an overall score between 0 and 100. The table below shows the three segments and their total weight. _Currently the weights are arbitrary and will be tested against a set of data to determine a better weighting system based on their actual affect on accurate authentications._
+The confidence score represents the reliability of the prediction result. The confidence score is split between three segments, each with a weighted value that when combined will produce an overall score between 0 and 100. The table below shows the three segments and their total weight. _Currently the weights are arbitrary and will be tested against a set of data to determine a better weighting system based on their actual affect on accurate predictions._
 
 | Segment                      | Weighted Value |
 | ---------------------------- | -------------- |
@@ -123,7 +121,7 @@ The coefficient of determination is an important metric in regression analysis t
 The standard error metric is included in the Python scipy.stats.linregress function and represents the average distance between the data values and the regression line.  The smaller the standard error, the higher the predictive value of the regression model. The standard error measures the average difference between the predicted values and actual values for movement time [3]. To weight the standard error, the API evaluates the percentage of variances within one standard deviation of the mean variance. The standard error score is assigned a value that corresponds to the percentage taken out of 30.
 
 ###### Weighted Variance
-The API represents accuracy in the confidence score by determining distance between the predicted point and authentication point. Considered to be the level of variance, this metric demonstrates how far the linear regression model is from predicting the actual value of the instance [9]. The API weights the variance on a scale of 0-20 and compares it to the median variance of all the instances stored in the database for that user. If the instance variance is greater than the median variance, then the variance level is scored as 0. Otherwise, the instance variance is divided by the median variance and multiplied by 20 to determine its weighted variance score.
+The API represents accuracy in the confidence score by determining distance between the predicted point and actual point. Considered to be the level of variance, this metric demonstrates how far the linear regression model is from predicting the actual value of the instance [9]. The API weights the variance on a scale of 0-20 and compares it to the median variance of all the instances stored in the database for that user. If the instance variance is greater than the median variance, then the variance level is scored as 0. Otherwise, the instance variance is divided by the median variance and multiplied by 20 to determine its weighted variance score.
 
 References
 ----------
